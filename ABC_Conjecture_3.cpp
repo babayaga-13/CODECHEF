@@ -1,67 +1,40 @@
-import java.util.*;
-
-import java.lang.*;
-
-import java.io.*;
-
-class Codechef
+#include <bits/stdc++.h>
+#define ll long long
+#define endl "\n"
+using namespace std;
+int main()
 {
-
-public
-    static void main(String[] args) throws java.lang.Exception
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL);
+    cout.tie(NULL);
+    int t;
+    cin >> t;
+    while (t--)
     {
-
-        Scanner sc = new Scanner(System.in);
-
-        int t = sc.nextInt();
-
-        while (t > 0)
+        int n;
+        cin >> n;
+        string s;
+        cin >> s;
+        int a = 0, ta = 0, b = 0, ans = 0;
+        for (int i = 0; i < n; i++)
         {
-
-            int n = sc.nextInt();
-
-            int arr[] = new int[n + 1];
-
-            for (int i = 1; i <= n; i++)
+            if (s[i] == 'a')
+                a++;
+            else if (s[i] == 'b')
             {
-                arr[i] = sc.nextInt();
+                ta += a;
+                b = 1;
+                a = 0;
             }
-
-            long ans = 0;
-            for (int i = 1; i <= n; i++)
+            else if (s[i] == 'c')
             {
-
-                long left = (long)arr[i];
-
-                if (left == 1)
+                if (b > 0 && ta > 0)
                 {
-                    ans += (long)n;
-                }
-                else
-                {
-
-                    long power = 1;
-                    for (int j = i; j <= n; j++)
-                    {
-                        power = left * power;
-                        if (power > 1000000000L)
-                        {
-                            break;
-                        }
-                        else
-                        {
-                            long right = (long)arr[j];
-                            if (power <= right)
-                            {
-                                ans++;
-                            }
-                        }
-                    }
+                    ans++;
+                    ta--;
                 }
             }
-            System.out.println(ans);
-
-            t--;
         }
+        cout << ans << endl;
     }
 }

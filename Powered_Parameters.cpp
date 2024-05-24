@@ -19,12 +19,19 @@ int main()
         ll ans = 0;
         for (int i = 1; i <= n; i++)
         {
-            for (int j = 1; j < 32; j++)
+            if (v[i] == 1)
+                ans += n;
+            else
             {
-                ll x = pow(v[i], j);
-                if (x <= v[j] && j <= n)
+                for (int j = 1; j <= n; j++)
                 {
-                    ans++;
+                    ll x = pow(v[i], j);
+                    if (x > 1e9)
+                        break;
+                    if (x <= v[j])
+                    {
+                        ans++;
+                    }
                 }
             }
         }
