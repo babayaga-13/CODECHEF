@@ -13,22 +13,20 @@ int main()
     {
         int n;
         cin >> n;
-        vector<int> v(n);
-        for (int i = 0; i < n; i++)
+        vector<int> v(n + 1);
+        for (int i = 1; i <= n; i++)
             cin >> v[i];
-        int ans = 0;
-        for (int i = 0; i < n; i++)
+        ll ans = 0;
+        for (int i = 1; i <= n; i++)
         {
-            for (int j = 1; j < 31; j++)
+            for (int j = 1; j < 32; j++)
             {
-                int x = pow(v[i], j);
-                cout << x << " ";
-                if (x <= v[i])
+                ll x = pow(v[i], j);
+                if (x <= v[j] && j <= n)
+                {
                     ans++;
-                else
-                    break;
+                }
             }
-            cout << endl;
         }
         cout << ans << endl;
     }
