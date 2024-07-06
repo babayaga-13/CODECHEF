@@ -1,47 +1,58 @@
 #include <bits/stdc++.h>
+#define ll long long
+#define endl "\n"
+#define yes cout << "YES" << endl
+#define no cout << "NO" << endl
+#include <ext/pb_ds/assoc_container.hpp>
+#include <ext/pb_ds/tree_policy.hpp>
+using namespace __gnu_pbds;
 using namespace std;
-#define int long long
-
-using vi = vector<int>;
+template <typename T>
+using pbds = tree<T, null_type, less<T>, rb_tree_tag, tree_order_statistics_node_update>;
 
 const int N = 1e6 + 2;
+int prime[N] = {0};
+ll pre[N] = {0}; 
 
-vector<int> vec;
-vector<int> x(N, 0);
-
-void seive()
+void sieve()
 {
-    x[1] = 1;
-    for (int i = 2; i < N; i++)
+    for (int i = 2; i * i < N; i++)
     {
-        if (x[i] == 0)
+        if (prime[i] == 0)
         {
-            x[i] = i;
-            vec.push_back(i);
             for (int j = i * i; j < N; j += i)
-                if (x[j] == 0)
-                    x[j] = i;
+            {
+                if (prime[j] == 0)
+                    prime[j] = i;
+            }
         }
+    }
+    ll s = 0;
+    for (int i = 2; i < N; i++) 
+    {
+        if (prime[i] == 0)
+            s += i;
+        pre[i] = s;
     }
 }
 
-signed main()
+int main()
 {
-    seive();
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL);
+    cout.tie(NULL);
     int t;
     cin >> t;
+    sieve();
+
     while (t--)
     {
-        int k;
-        cin >> k;
-        int ans_sum = 0;
-        if (x[k] == k)
-            for (int i = 0; i < vec.size() && vec[i] <= k; i++)
-                ans_sum += vec[i] * k;
+        int n;
+        cin >> n;
+        if (prime[n] == 0)
+            cout << pre[n] * n << endl;
         else
-            for (int i = 0; i < vec.size() && vec[i] <= x[k]; i++)
-                ans_sum += vec[i] * k;
-        cout << ans_sum << '\n';
+            cout << pre[prime[n]] * n << endl;
     }
     return 0;
 }
